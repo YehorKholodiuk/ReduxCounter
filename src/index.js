@@ -3,11 +3,38 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { configureStore } from '@reduxjs/toolkit'
+import { legacy_createStore as createStore } from 'redux';
+import {Provider} from "react-redux";
+const reducers = (state,action) => {
+    if (action.type === 'PLUS') {
+        return {
+            ...state,
+            count: state.count + 1
+        }
+    }
+    if (action.type === 'MINUS') {
+        return {
+            ...state,
+            count: state.count - 1
+        }
+    }
 
+
+    return {
+        count: 2
+    }
+
+}
+
+const store = createStore(reducers)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+
   <React.StrictMode>
+      <Provider store={store}>
     <App />
+          </Provider>
   </React.StrictMode>
 );
 
